@@ -1,6 +1,13 @@
+name: Workflow with Email Step
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  test:
-  runs-on: ubuntu-latest   
-    steps:
+  test:                # job name
+    runs-on: ubuntu-latest   # must be indented 4 spaces
+    steps:             # also indented 4 spaces
       - name: 24f2007572@ds.study.iitm.ac.in
         run: echo "Hello, world!"
