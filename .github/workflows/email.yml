@@ -3,8 +3,6 @@ name: CI with Caching
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
 jobs:
   build:
@@ -17,12 +15,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      # Cache pip downloads
       - name: prime-cache-56ae1fc
         id: prime_cache_56ae1fc
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: cache-56ae1
+          key: cache-56ae1fc
+
+      - name: Show cache result
+        run: |
+          echo "Cache hit? ${{ steps.prime_cache_56ae1fc.outputs.cache-hit }}"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
