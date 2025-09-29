@@ -1,38 +1,14 @@
-name: CI with Caching
+name: Hello World
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+  pull_request:
 
 jobs:
   test:
+    runs-on: ubuntu-latest
     steps:
       - name: 24f2007572@ds.study.iitm.ac.in
         run: echo "Hello, world!"
-  
-  build:
-    runs-on: ubuntu-latest
-      
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: prime-cache-56ae1fc
-        id: prime_cache_56ae1fc
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: cache-56ae1fc
-
-      - name: Show cache result
-        run: |
-          echo "Cache hit? ${{ steps.prime_cache_56ae1fc.outputs.cache-hit }}"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
